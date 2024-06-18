@@ -11,7 +11,6 @@ export const HomeScreen = () => {
 		<Skeleton>
 			<View>
 				<Text>Home Screen</Text>
-				<HeartIcon width={50} height={50} fill={COLORS.americanGreen} />
 			</View>
 		</Skeleton>
 	);

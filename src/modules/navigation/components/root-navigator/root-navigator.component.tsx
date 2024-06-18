@@ -5,6 +5,7 @@ import { NavContainer } from '../nav-container/nav-container.component';
 import { RootStackParamList, SCREENS } from '../../types/navigation.type';
 import { SCREEN_OPTIONS } from '../../constants/screen-options';
 import { AuthStackComponent } from 'src/modules/navigation/components/auth-stack';
+import { BottomTabStackComponent } from 'src/modules/navigation/components/bottom-tab-stack';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -17,13 +18,18 @@ export const RootNavigator = () => {
 					component={AuthStackComponent}
 					options={SCREEN_OPTIONS}
 				/>
+				<Stack.Screen
+					name={SCREENS.BOTTOM_BAR}
+					component={BottomTabStackComponent}
+					options={SCREEN_OPTIONS}
+				/>
 			</>
 		);
 	}, []);
 
 	return (
 		<NavContainer>
-			<Stack.Navigator initialRouteName={SCREENS.AUTH_STACK}>
+			<Stack.Navigator initialRouteName={SCREENS.BOTTOM_BAR}>
 				{screens}
 			</Stack.Navigator>
 		</NavContainer>
