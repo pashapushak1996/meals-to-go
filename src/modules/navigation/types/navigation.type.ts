@@ -1,8 +1,19 @@
-export enum NAVIGATION_KEYS {
-	// Todo Add new screens
-	HOME = 'HOME',
+export enum SCREENS {
+	AUTH_STACK = 'SCREEN:AUTH_STACK',
+	BOTTOM_BAR = 'SCREEN:BOTTOM_BAR',
+
+	// SCREENS
+	SIGN_IN = 'SCREEN:SIGN_IN',
+	SIGN_UP = 'SCREEN:SIGN_UP',
+	HOME = 'SCREEN:HOME',
 }
 
 export type RootStackParamList = {
-	[NAVIGATION_KEYS.HOME]: undefined;
+	[SCREENS.AUTH_STACK]: undefined;
+	[SCREENS.BOTTOM_BAR]: undefined;
+
+	// SCREENS
+	[SCREENS.SIGN_IN]: undefined;
+	[SCREENS.SIGN_UP]: undefined;
+	[SCREENS.HOME]: undefined;
 };
