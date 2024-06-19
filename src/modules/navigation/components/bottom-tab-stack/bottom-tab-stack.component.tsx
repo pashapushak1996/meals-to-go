@@ -7,6 +7,7 @@ import {
 import { HomeScreen } from 'src/modules/home';
 import { SCREEN_OPTIONS } from 'src/modules/navigation/constants/screen-options';
 import { ChatListScreen } from 'src/modules/chat';
+import { useStreamChat } from 'src/shared/hooks/useChatStream';
 
 const BottomTabStack = createBottomTabNavigator<RootStackParamList>();
 

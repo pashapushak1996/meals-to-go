@@ -1,24 +1,24 @@
 import React from 'react';
 import { Text } from 'react-native';
+import { ChannelList, Chat } from 'stream-chat-react-native';
+
 import { Skeleton } from 'src/shared/components/skeleton';
-import { Button } from 'src/shared/components/button';
-import { useNavigation } from '@react-navigation/native';
-import { SCREENS } from 'src/modules/navigation/types/navigation.type';
+import { chatClient } from 'src/shared/lib/stream-chat';
+import { useStreamChat } from 'src/shared/hooks/useChatStream';
+import { Loader } from 'src/shared/components/loader';
 
 export const ChatListScreen = () => {
-	const navigation = useNavigation();
+	const { isConnected } = useStreamChat();
+
 	return (
-		<Skeleton>
-			<Text>Chat list</Text>
-			<Button
-				onPress={() =>
-					navigation.navigate(SCREENS.CHAT_STACK, {
-						screen: SCREENS.CHAT,
-						params: { cid: '2' },
-					})
-				}
-				text="Navigate to Chat"
-			/>
-		</Skeleton>
+		<Chat client={chatClient}>
+			<Skeleton>
+				{isConnected ? (
+					<ChannelList numberOfSkeletons={3} />
+				) : (
+					<Loader />
+				)}
+			</Skeleton>
+		</Chat>
 	);
 };
