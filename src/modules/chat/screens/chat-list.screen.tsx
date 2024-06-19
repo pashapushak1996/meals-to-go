@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text } from 'react-native';
 import { Skeleton } from 'src/shared/components/skeleton';
 import { Button } from 'src/shared/components/button';
 import { useNavigation } from '@react-navigation/native';
