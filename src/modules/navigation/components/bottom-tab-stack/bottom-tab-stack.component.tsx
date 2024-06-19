@@ -6,6 +6,7 @@ import {
 } from 'src/modules/navigation/types/navigation.type';
 import { HomeScreen } from 'src/modules/home';
 import { SCREEN_OPTIONS } from 'src/modules/navigation/constants/screen-options';
+import { ChatListScreen } from 'src/modules/chat';
 
 const BottomTabStack = createBottomTabNavigator<RootStackParamList>();
 
@@ -16,6 +17,10 @@ export const BottomTabStackComponent = () => {
 			initialRouteName={SCREENS.HOME}
 		>
 			<BottomTabStack.Screen name={SCREENS.HOME} component={HomeScreen} />
+			<BottomTabStack.Screen
+				name={SCREENS.CHAT_LIST}
+				component={ChatListScreen}
+			/>
 		</BottomTabStack.Navigator>
 	);
 };

@@ -6,6 +6,7 @@ export enum SCREENS {
 	SIGN_IN = 'SCREEN:SIGN_IN',
 	SIGN_UP = 'SCREEN:SIGN_UP',
 	HOME = 'SCREEN:HOME',
+	CHAT_LIST = 'SCREEN:CHAT_LIST',
 }
 
 export type RootStackParamList = {
@@ -16,4 +17,5 @@ export type RootStackParamList = {
 	[SCREENS.SIGN_IN]: undefined;
 	[SCREENS.SIGN_UP]: undefined;
 	[SCREENS.HOME]: undefined;
+	[SCREENS.CHAT_LIST]: undefined;
 };
