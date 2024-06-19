@@ -6,6 +6,7 @@ import { RootStackParamList, SCREENS } from '../../types/navigation.type';
 import { SCREEN_OPTIONS } from '../../constants/screen-options';
 import { AuthStackComponent } from 'src/modules/navigation/components/auth-stack';
 import { BottomTabStackComponent } from 'src/modules/navigation/components/bottom-tab-stack';
+import { ChatStackComponent } from 'src/modules/navigation/components/chat-stack/chat-stack.component';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -22,6 +23,11 @@ export const RootNavigator = () => {
 					name={SCREENS.BOTTOM_BAR}
 					component={BottomTabStackComponent}
 					options={SCREEN_OPTIONS}
+				/>
+				<Stack.Screen
+					name={SCREENS.CHAT_STACK}
+					component={ChatStackComponent}
+					options={{ headerBackTitle: 'Back', headerTitle: 'Chat' }}
 				/>
 			</>
 		);
