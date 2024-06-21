@@ -8,7 +8,6 @@ import React, {
 import { Chat, OverlayProvider } from 'stream-chat-react-native';
 
 import { chatClient } from 'src/shared/lib/stream-chat';
-import { AppState } from 'react-native';
 
 const ChatContext = createContext({ isConnected: false });
 
@@ -33,19 +32,9 @@ export const ChatProvider = ({ children }: PropsWithChildren) => {
 			}
 		};
 
-		if (!chatClient.userID) {
+		if (!chatClient.userID && !isConnected) {
 			connect();
 		}
-
-		const disconnect = async () => {
-			await chatClient.disconnectUser();
-		};
-
-		return () => {
-			if (AppState.currentState !== 'active') {
-				disconnect();
-			}
-		};
 	}, []);
 
 	return (
