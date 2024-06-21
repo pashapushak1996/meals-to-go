@@ -1,17 +1,17 @@
 import React from 'react';
 import { ChannelList, Chat } from 'stream-chat-react-native';
 import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { StyleSheet } from 'react-native';
 
-import { Skeleton } from 'src/shared/components/skeleton';
 import { ChannelType, chatClient } from 'src/shared/lib/stream-chat';
-import { useStreamChat } from 'src/shared/hooks/useChatStream';
-import { Loader } from 'src/shared/components/loader';
 import { useChatStore } from '../store/useChatStore';
 import { SCREENS } from 'src/modules/navigation/types/navigation.type';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useChatContext } from 'src/shared/providers/ChatProvider';
+import { Loader } from 'src/shared/components/loader';
 
 export const ChatListScreen = () => {
-	const { isConnected } = useStreamChat();
+	const { isConnected } = useChatContext();
 	const { setChannel } = useChatStore();
 	const navigation = useNavigation();
 
@@ -26,7 +26,7 @@ export const ChatListScreen = () => {
 
 	return (
 		<Chat client={chatClient}>
-			<SafeAreaView edges={['top']} style={{ flex: 1 }}>
+			<SafeAreaView edges={['top']} style={styles.flex}>
 				{isConnected ? (
 					<ChannelList
 						numberOfSkeletons={3}
@@ -39,3 +39,5 @@ export const ChatListScreen = () => {
 		</Chat>
 	);
 };
+
+const styles = StyleSheet.create({ flex: { flex: 1 } });

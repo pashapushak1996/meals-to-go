@@ -6,4 +6,5 @@ export const COLORS = Object.freeze({
 	dimGrey: '#696B6F',
 	chineseSilver: '#CCCACA',
 	americanGreen: '#31BA31',
+	white: '#FFFFFF',
 });
