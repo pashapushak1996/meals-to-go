@@ -7,10 +7,13 @@ import { SCREEN_OPTIONS } from '../../constants/screen-options';
 import { AuthStackComponent } from 'src/modules/navigation/components/auth-stack';
 import { BottomTabStackComponent } from 'src/modules/navigation/components/bottom-tab-stack';
 import { ChatStackComponent } from 'src/modules/navigation/components/chat-stack';
+import { useUserStore } from 'src/modules/auth/store/useUserStore';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const RootNavigator = () => {
+	const { isAuthenticated } = useUserStore();
+
 	const screens = React.useMemo(() => {
 		return (
 			<>
@@ -35,7 +38,11 @@ export const RootNavigator = () => {
 
 	return (
 		<NavContainer>
-			<Stack.Navigator initialRouteName={SCREENS.BOTTOM_BAR}>
+			<Stack.Navigator
+				initialRouteName={
+					isAuthenticated ? SCREENS.BOTTOM_BAR : SCREENS.AUTH_STACK
+				}
+			>
 				{screens}
 			</Stack.Navigator>
 		</NavContainer>
