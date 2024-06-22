@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Alert, StyleSheet, View } from 'react-native';
+import { Alert, StyleSheet, View, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Skeleton } from 'src/shared/components/skeleton';
 import { Button, Input } from '@rneui/base';
@@ -27,6 +27,7 @@ export const SignInScreen = () => {
 			await supabase.auth.signInWithPassword(userData);
 
 		if (error) {
+			setLoading(false);
 			Alert.alert(error.message);
 			return;
 		}
@@ -73,13 +74,35 @@ export const SignInScreen = () => {
 					title={'Sign in'}
 					onPress={signInWithEmail}
 					loading={loading}
+					style={styles.buttonStyles}
 				/>
+				<View style={styles.bottomTextContainer}>
+					<Text style={styles.bottomText}>
+						You dont have an account yet?
+					</Text>
+					<Button
+						size={'sm'}
+						type={'clear'}
+						title={'Sign up'}
+						titleStyle={styles.bottomText}
+						onPress={() => navigation.navigate(SCREENS.SIGN_UP)}
+					/>
+				</View>
 			</View>
 		</Skeleton>
 	);
 };
 
 const styles = StyleSheet.create({
+	bottomText: { fontSize: 16 },
+	bottomTextContainer: {
+		alignItems: 'center',
+		flexDirection: 'row',
+		justifyContent: 'center',
+	},
+	buttonStyles: {
+		marginBottom: SPACING.L,
+	},
 	container: {
 		paddingHorizontal: SPACING.L,
 	},
