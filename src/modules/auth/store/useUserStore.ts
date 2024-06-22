@@ -8,14 +8,14 @@ type State = {
 };
 
 type Actions = {
-	setUser: (user: IUser) => void;
+	setUser: (user: IUser | null) => void;
 	setIsAuthenticated: (isAuthenticated: boolean) => void;
 };
 
 export const useUserStore = create<State & Actions>((set) => ({
 	user: null,
 	isAuthenticated: false,
-	setUser: (user: IUser) => set(() => ({ user })),
+	setUser: (user: IUser | null) => set(() => ({ user })),
 	setIsAuthenticated: (isAuthenticated: boolean) =>
 		set(() => ({ isAuthenticated })),
 }));
