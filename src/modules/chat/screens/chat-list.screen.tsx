@@ -7,11 +7,8 @@ import { StyleSheet } from 'react-native';
 import { ChannelType, chatClient } from 'src/shared/lib/stream-chat';
 import { useChatStore } from '../store/useChatStore';
 import { SCREENS } from 'src/modules/navigation/types/navigation.type';
-import { useChatContext } from 'src/shared/providers/ChatProvider';
-import { Loader } from 'src/shared/components/loader';
 
 export const ChatListScreen = () => {
-	const { isConnected } = useChatContext();
 	const { setChannel } = useChatStore();
 	const navigation = useNavigation();
 
@@ -27,14 +24,7 @@ export const ChatListScreen = () => {
 	return (
 		<Chat client={chatClient}>
 			<SafeAreaView edges={['top']} style={styles.flex}>
-				{isConnected ? (
-					<ChannelList
-						numberOfSkeletons={3}
-						onSelect={onClickChatItem}
-					/>
-				) : (
-					<Loader />
-				)}
+				<ChannelList numberOfSkeletons={3} onSelect={onClickChatItem} />
 			</SafeAreaView>
 		</Chat>
 	);
