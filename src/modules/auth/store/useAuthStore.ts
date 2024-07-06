@@ -12,9 +12,10 @@ type Actions = {
 	setIsAuthenticated: (isAuthenticated: boolean) => void;
 };
 
-export const useUserStore = create<State & Actions>((set) => ({
+export const useAuthStore = create<State & Actions>((set) => ({
 	user: null,
 	isAuthenticated: false,
+	session: null,
 	setUser: (user: IUser | null) => set(() => ({ user })),
 	setIsAuthenticated: (isAuthenticated: boolean) =>
 		set(() => ({ isAuthenticated })),

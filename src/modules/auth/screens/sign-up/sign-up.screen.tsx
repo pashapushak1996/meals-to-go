@@ -4,9 +4,9 @@ import { useNavigation } from '@react-navigation/native';
 import { Button, Input } from '@rneui/base';
 
 import { SPACING } from 'src/shared/themes/spacing';
-import { supabase } from 'src/shared/lib';
 import { SCREENS } from 'src/modules/navigation/types/navigation.type';
 import { Skeleton } from 'src/shared/components/skeleton';
+import { authService } from 'src/modules/auth/service/authService';
 
 export const SignUpScreen = () => {
 	const [userData, setUserData] = useState({ email: '', password: '' });
@@ -24,7 +24,7 @@ export const SignUpScreen = () => {
 		const {
 			data: { session },
 			error,
-		} = await supabase.auth.signUp(userData);
+		} = await authService.register(userData);
 
 		if (error) {
 			setLoading(false);
@@ -32,8 +32,9 @@ export const SignUpScreen = () => {
 			return;
 		}
 
-		if (!session)
+		if (!session) {
 			Alert.alert('Please check your inbox for email verification!');
+		}
 
 		navigation.navigate(SCREENS.SIGN_IN);
 

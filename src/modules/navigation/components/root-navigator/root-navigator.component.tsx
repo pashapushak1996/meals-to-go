@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { NavContainer } from '../nav-container/nav-container.component';
@@ -7,21 +8,32 @@ import { SCREEN_OPTIONS } from '../../constants/screen-options';
 import { AuthStackComponent } from 'src/modules/navigation/components/auth-stack';
 import { BottomTabStackComponent } from 'src/modules/navigation/components/bottom-tab-stack';
 import { ChatStackComponent } from 'src/modules/navigation/components/chat-stack';
-import { useUserStore } from 'src/modules/auth/store/useUserStore';
+import { useAuth } from 'src/modules/auth/hooks/useAuth';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
+// TODO Add splash screen
+
 export const RootNavigator = () => {
-	const { isAuthenticated } = useUserStore();
+	const { isAuthenticated, refreshSession } = useAuth();
+
+	useEffect(() => {
+		refreshSession();
+	}, [isAuthenticated]);
 
 	const screens = React.useMemo(() => {
-		return (
-			<>
+		if (!isAuthenticated) {
+			return (
 				<Stack.Screen
 					name={SCREENS.AUTH_STACK}
 					component={AuthStackComponent}
 					options={SCREEN_OPTIONS}
 				/>
+			);
+		}
+
+		return (
+			<>
 				<Stack.Screen
 					name={SCREENS.BOTTOM_BAR}
 					component={BottomTabStackComponent}
@@ -34,17 +46,11 @@ export const RootNavigator = () => {
 				/>
 			</>
 		);
-	}, []);
+	}, [isAuthenticated]);
 
 	return (
 		<NavContainer>
-			<Stack.Navigator
-				initialRouteName={
-					isAuthenticated ? SCREENS.BOTTOM_BAR : SCREENS.AUTH_STACK
-				}
-			>
-				{screens}
-			</Stack.Navigator>
+			<Stack.Navigator>{screens}</Stack.Navigator>
 		</NavContainer>
 	);
 };

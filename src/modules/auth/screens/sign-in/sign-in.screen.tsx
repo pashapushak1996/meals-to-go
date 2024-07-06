@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
-import { Alert, StyleSheet, View, Text } from 'react-native';
+import { Alert, StyleSheet, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Skeleton } from 'src/shared/components/skeleton';
 import { Button, Input } from '@rneui/base';
 
 import { SPACING } from 'src/shared/themes/spacing';
-import { supabase } from 'src/shared/lib';
-import { useUserStore } from 'src/modules/auth/store/useUserStore';
+import { useAuthStore } from 'src/modules/auth/store/useAuthStore';
 import { SCREENS } from 'src/modules/navigation/types/navigation.type';
+import { authService } from 'src/modules/auth/service/authService';
 
 export const SignInScreen = () => {
 	const [userData, setUserData] = useState({ email: '', password: '' });
-	const { setUser, setIsAuthenticated } = useUserStore();
+	const { setUser, setIsAuthenticated } = useAuthStore();
+	const [loading, setLoading] = useState(false);
 	const navigation = useNavigation();
 
 	const handleInputChange =
@@ -19,16 +20,14 @@ export const SignInScreen = () => {
 			setUserData((prev) => ({ ...prev, [type]: text }));
 		};
 
-	const [loading, setLoading] = useState(false);
-
 	async function signInWithEmail() {
 		setLoading(true);
-		const { error, data } =
-			await supabase.auth.signInWithPassword(userData);
+		const { error, data } = await authService.login(userData);
 
 		if (error) {
 			setLoading(false);
 			Alert.alert(error.message);
+
 			return;
 		}
 

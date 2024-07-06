@@ -1,18 +1,18 @@
 import * as React from 'react';
 import { Alert, Text, View } from 'react-native';
 import { Skeleton } from 'src/shared/components/skeleton';
-import { useUserStore } from 'src/modules/auth/store/useUserStore';
+import { useAuthStore } from 'src/modules/auth/store/useAuthStore';
 import { Button } from '@rneui/base';
-import { supabase } from 'src/shared/lib';
+import { authService } from 'src/modules/auth/service/authService';
 
 export const HomeScreen = () => {
-	const { user, setUser, setIsAuthenticated } = useUserStore();
+	const { user, setUser, setIsAuthenticated } = useAuthStore();
 
 	const logOut = async () => {
-		const { error } = await supabase.auth.signOut();
+		const data = await authService.logout();
 
-		if (error) {
-			Alert.alert('Try again later', error.message);
+		if (data) {
+			Alert.alert('Try again later', data.message);
 
 			return;
 		}
