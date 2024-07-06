@@ -1,11 +1,11 @@
-import * as React from 'react';
 import { Alert, Text, View } from 'react-native';
 import { Skeleton } from 'src/shared/components/skeleton';
 import { useAuthStore } from 'src/modules/auth/store/useAuthStore';
-import { Button } from '@rneui/base';
 import { authService } from 'src/modules/auth/service/authService';
+import { Button } from '@rneui/base';
+import * as React from 'react';
 
-export const HomeScreen = () => {
+export const ProfileScreen = () => {
 	const { user, setUser, setIsAuthenticated } = useAuthStore();
 
 	const logOut = async () => {
@@ -20,7 +20,6 @@ export const HomeScreen = () => {
 		setUser(null);
 		setIsAuthenticated(false);
 	};
-
 	return (
 		<Skeleton>
 			<View>
